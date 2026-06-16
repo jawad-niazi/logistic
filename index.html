@@ -9,14 +9,21 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- AOS Animation Library CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     
     <style>
+        /* Exact Brand Colors Inspired by image_f9bd88.jpg */
+        :root {
+            --brand-green: #73cd02;
+            --brand-green-hover: #5cb301;
+            --brand-green-light: #f2fbe6;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fdfbf7;
+            background-color: #fcfdfa;
             scroll-behavior: smooth;
         }
         /* Custom Smooth Floating Animation for Hero Container */
@@ -28,17 +35,54 @@
         .hero-float {
             animation: float 6s ease-in-out infinite;
         }
-        /* Dropdown CSS Transitions */
+
+        /* Desktop Dropdown on Hover Setup */
+        @media (min-width: 1024px) {
+            .dropdown-trigger:hover .dropdown-menu {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+                pointer-events: auto;
+            }
+            .dropdown-trigger:hover svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        /* Fallback & Base Dropdown Styles */
         .dropdown-menu {
-            display: none;
             opacity: 0;
             transform: translateX(-50%) translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .dropdown-trigger:hover .dropdown-menu {
-            display: block;
+        .dropdown-menu.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .dropdown-trigger svg {
+            transition: transform 0.2s ease;
+        }
+        .dropdown-trigger.active svg {
+            transform: rotate(180deg);
+        }
+
+        /* --- Custom Mobile Menu Animations --- */
+        #mobile-drawer {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-overlay {
+            transition: opacity 0.3s ease;
+        }
+        /* Hamburger line morphing states */
+        .nav-open .line-1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-open .line-2 {
+            opacity: 0;
+        }
+        .nav-open .line-3 {
+            transform: rotate(-45deg) translate(5px, -5px);
         }
     </style>
 </head>
@@ -55,46 +99,105 @@
                     <img src="logo.png" alt="Valdetron Logo" class="h-9 object-contain">
                 </div>
                 
-                <!-- Navigation Structure with Dropdowns -->
+                <!-- Navigation Structure with Hover Dropdowns on Desktop -->
                 <div class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                    <a href="#home" class="hover:text-orange-500 transition-colors duration-300">Home</a>
-                    <a href="#about" class="hover:text-orange-500 transition-colors duration-300">About Us</a>
+                    <a href="#home" class="hover:text-[#73cd02] transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-[#73cd02] transition-colors duration-300">About Us</a>
                     
-                    <!-- Services Dropdown -->
-                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-orange-500 transition-colors duration-300">
-                        <span class="flex items-center gap-1">Services <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
-                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50">
+                    <!-- Services Dropdown (Hover on Desktop, Click on Mobile) -->
+                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-[#73cd02] transition-colors duration-300" id="services-trigger">
+                        <span class="flex items-center gap-1.5 select-none">
+                            Services 
+                            <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50" id="services-menu">
                             <div class="bg-white border border-slate-100 rounded-xl shadow-xl p-3 w-64 flex flex-col gap-2">
-                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Oceanfreight (FCL/LCL)</a>
-                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Intermodal & Handling</a>
-                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Non-Containerized Cargo</a>
-                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Airfreight</a>
-                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Business Consultancy</a>
+                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Oceanfreight (FCL/LCL)</a>
+                                <a href="#reefer" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Reefer Specialists</a>
+                                <a href="#exports" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Fresh Produce Exports</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Intermodal & Handling</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Non-Containerized Cargo</a>
+                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Airfreight</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Business Consultancy</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Locations Dropdown -->
-                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-orange-500 transition-colors duration-300">
-                        <span class="flex items-center gap-1">Locations <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
-                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50">
+                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-[#73cd02] transition-colors duration-300" id="locations-trigger">
+                        <span class="flex items-center gap-1.5 select-none">
+                            Locations 
+                            <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
+                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50" id="locations-menu">
                             <div class="bg-white border border-slate-100 rounded-xl shadow-xl p-3 w-48 flex flex-col gap-2">
-                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Denmark</a>
-                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Netherlands</a>
-                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Pakistan</a>
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Denmark</a>
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Netherlands</a>
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-[#f2fbe6] text-slate-700 hover:text-[#5cb301] transition font-medium">Pakistan</a>
                             </div>
                         </div>
                     </div>
 
-                    <a href="#about" class="hover:text-orange-500 transition-colors duration-300">Our People</a>
+                    <a href="#about" class="hover:text-[#73cd02] transition-colors duration-300">Our People</a>
+                    <a href="#dealex" class="hover:text-[#73cd02] transition-colors duration-300 flex items-center gap-1">Dealex </a>
                 </div>
-                <a href="#contact" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium px-6 py-2.5 rounded-full text-sm shadow-md hover:opacity-90 transform hover:-translate-y-0.5 transition duration-300">Contact</a>
+                
+                <!-- Desktop Action Button & Mobile Hamburger Trigger -->
+                <div class="flex items-center gap-4">
+                    <a href="#contact" class="hidden lg:inline-block bg-[#73cd02] hover:bg-[#5cb301] text-white font-semibold px-6 py-2.5 rounded-full text-sm shadow-md transform hover:-translate-y-0.5 transition duration-300">Contact</a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="menu-toggle" class="lg:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 rounded-xl bg-slate-900/5 focus:outline-none z-50 cursor-pointer">
+                        <span class="line-1 w-5 h-0.5 bg-slate-900 rounded-full transition-all duration-300 origin-center"></span>
+                        <span class="line-2 w-5 h-0.5 bg-slate-900 rounded-full transition-all duration-300"></span>
+                        <span class="line-3 w-5 h-0.5 bg-slate-900 rounded-full transition-all duration-300 origin-center"></span>
+                    </button>
+                </div>
             </nav>
+
+            <!-- ==================== MODERN SIDE DRAWER MOBILE MENU ==================== -->
+            <div id="mobile-overlay" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-40 hidden opacity-0"></div>
+            <div id="mobile-drawer" class="fixed top-0 right-0 h-full w-[300px] bg-white border-l border-slate-100 shadow-2xl z-40 p-6 flex flex-col justify-between translate-x-full lg:hidden pt-24 overflow-y-auto">
+                <div class="flex flex-col gap-5 text-base font-bold text-slate-800">
+                    <a href="#home" class="mobile-nav-link hover:text-[#73cd02] border-b border-slate-50 pb-2 transition duration-300">Home</a>
+                    <a href="#about" class="mobile-nav-link hover:text-[#73cd02] border-b border-slate-50 pb-2 transition duration-300">About Us</a>
+                    
+                    <!-- Mobile Sub-items Accordion Context -->
+                    <div class="space-y-2">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Services</span>
+                        <div class="flex flex-col gap-2 pl-3 text-sm font-semibold text-slate-600 border-l-2 border-green-200">
+                            <a href="#services" class="mobile-nav-link hover:text-[#73cd02] transition">Oceanfreight (FCL/LCL)</a>
+                            <a href="#reefer" class="mobile-nav-link hover:text-[#73cd02] transition">Reefer Specialists</a>
+                            <a href="#exports" class="mobile-nav-link hover:text-[#73cd02] transition">Fresh Produce Exports</a>
+                            <a href="#why-valdetron" class="mobile-nav-link hover:text-[#73cd02] transition">Intermodal & Handling</a>
+                            <a href="#why-valdetron" class="mobile-nav-link hover:text-[#73cd02] transition">Non-Containerized Cargo</a>
+                            <a href="#services" class="mobile-nav-link hover:text-[#73cd02] transition">Airfreight</a>
+                            <a href="#why-valdetron" class="mobile-nav-link hover:text-[#73cd02] transition">Business Consultancy</a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Locations</span>
+                        <div class="flex flex-col gap-2 pl-3 text-sm font-semibold text-slate-600 border-l-2 border-green-200">
+                            <a href="#locations" class="mobile-nav-link hover:text-[#73cd02] transition">Denmark</a>
+                            <a href="#locations" class="mobile-nav-link hover:text-[#73cd02] transition">Netherlands</a>
+                            <a href="#locations" class="mobile-nav-link hover:text-[#73cd02] transition">Pakistan</a>
+                        </div>
+                    </div>
+
+                    <a href="#about" class="mobile-nav-link hover:text-[#73cd02] pt-2 transition duration-300">Our People</a>
+                    <a href="#dealex" class="mobile-nav-link hover:text-[#73cd02] pt-2 transition duration-300">Dealex Associated</a>
+                </div>
+                
+                <a href="#contact" class="mobile-nav-link w-full text-center bg-[#73cd02] hover:bg-[#5cb301] text-white font-bold py-3.5 rounded-xl shadow-md transform active:scale-95 transition mt-8 text-sm block">
+                    Get in Touch
+                </a>
+            </div>
 
             <!-- Hero Headline -->
             <div id="home" class="text-center mt-6" data-aos="fade-down" data-aos-duration="1000">
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-none">
-                    Moving your stuff around <br class="hidden md:block"> the planet <span class="text-orange-500 block md:inline mt-2">since 1997.</span>
+                    Moving your stuff around <br class="hidden md:block"> the planet <span class="text-[#73cd02] block md:inline mt-2">since 1997.</span>
                 </h1>
                 
                 <!-- Pickup/Destination Tracking Input Area -->
@@ -115,14 +218,14 @@
 
             <!-- Central 3D Container Asset with Floating Animation -->
             <div class="relative w-full flex justify-center items-center mt-2 max-w-5xl mx-auto hero-float" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="200">
-                
-                <img src="hero2.png" alt="Valdetron Cargo Container" class="w-full max-w-4xl object-contain relative z-0 transform hover:scale-[1.05] transition duration-700 ease-out">
+                <div class="absolute inset-0 bg-[#73cd02]/10 blur-3xl rounded-full scale-75 -z-10"></div>
+                <img src="hero2.png" alt="Valdetron Cargo Container" class="w-full max-w-4xl object-contain relative z-0 transform hover:scale-[1.03] transition duration-700 ease-out">
             </div>
 
             <!-- Dark Logistics Info Banner -->
-            <div id="about" class="bg-[#18181b] rounded-[2.5rem] p-6 md:p-12 text-white shadow-2xl mt-4" data-aos="fade-up" data-aos-duration="1000">
+            <div id="about" class="bg-[#101713] rounded-[2.5rem] p-6 md:p-12 text-white shadow-2xl mt-4" data-aos="fade-up" data-aos-duration="1000">
                 <!-- Locations / Country Labels Row -->
-                <div class="grid grid-cols-3 gap-4 items-center opacity-90 pb-8 border-b border-zinc-800 text-center text-xs tracking-widest font-extrabold text-orange-400">
+                <div class="grid grid-cols-3 gap-4 items-center opacity-90 pb-8 border-b border-zinc-800 text-center text-xs tracking-widest font-extrabold text-[#73cd02]">
                     <div class="hover:text-white transition duration-300 cursor-default">DENMARK</div>
                     <div class="hover:text-white transition duration-300 cursor-default">NETHERLANDS</div>
                     <div class="hover:text-white transition duration-300 cursor-default">PAKISTAN</div>
@@ -131,12 +234,14 @@
                 <!-- Inner About Intro Section -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pt-8 items-center">
                     <div class="md:col-span-5 space-y-4" data-aos="fade-right" data-aos-delay="200">
-                        <div class="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 p-1 group">
+                        <div class="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 p-1 group relative">
+                            <!-- Green Shade Effect on image hover -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#73cd02]/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 z-10 pointer-events-none"></div>
                             <img src="containers.jpg" alt="Valdetron Vessel Operation" class="w-full h-44 object-cover rounded-xl block transform group-hover:scale-105 transition duration-500">
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center text-xl text-black font-extrabold shrink-0">✱</div>
-                            <div class="bg-zinc-800 rounded-xl px-4 py-2 text-xs text-zinc-400 leading-normal">
+                            <div class="w-12 h-12 rounded-xl bg-[#73cd02] flex items-center justify-center text-xl text-white font-extrabold shrink-0">✱</div>
+                            <div class="bg-zinc-900/60 rounded-xl px-4 py-2 text-xs text-zinc-300 leading-normal border border-zinc-800">
                                 Responsive and cost-effective container solutions.
                             </div>
                         </div>
@@ -144,20 +249,67 @@
 
                     <!-- Right Copy Block -->
                     <div class="md:col-span-7 space-y-4" data-aos="fade-left" data-aos-delay="300">
-                        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight text-orange-500">
+                        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight text-[#73cd02]">
                             Decades of Experience in Shipping & Forwarding
                         </h2>
                         <p class="text-sm md:text-base text-zinc-300 leading-relaxed font-light">
                             Valdetron has decades of experience in shipping and forwarding and specializes in international container logistics. The company also provides intermodal services, cargo handling, non-containerized cargo solutions, air freight, and business consultancy. Their focus is on responsive, cost-effective service and long-term client relationships.
                         </p>
                         <div class="flex flex-wrap gap-3 pt-2">
-                            <a href="#contact" class="bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5 shadow-md">Contact Our Team</a>
-                            <a href="#services" class="bg-transparent hover:bg-zinc-800 border border-zinc-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5">View Services</a>
+                            <a href="#contact" class="bg-[#73cd02] hover:bg-[#5cb301] text-white font-semibold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5 shadow-md">Contact Our Team</a>
+                            <a href="#services" class="bg-transparent hover:bg-zinc-900 border border-zinc-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5">View Services</a>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+
+        <!-- ==================== SECTION: REEFER SPECIALISTS ==================== -->
+        <section id="reefer" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60 grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#f2fbe6] blur-3xl opacity-60 rounded-full pointer-events-none"></div>
+            
+            <div class="md:col-span-5 order-2 md:order-1 rounded-3xl overflow-hidden aspect-video md:aspect-[4/3] shadow-md border border-slate-100 group relative">
+                <!-- Subtle Green Shade Tint Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#73cd02]/15 via-transparent to-transparent z-10 pointer-events-none group-hover:opacity-40 transition duration-300"></div>
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Cold Chain Logistics Reefer" class="w-full h-full object-cover block transform group-hover:scale-105 transition duration-500">
+            </div>
+
+            <div class="md:col-span-7 order-1 md:order-2 space-y-4 max-w-xl" data-aos="fade-left" data-aos-delay="200">
+                <span class="text-xs font-bold text-[#5cb301] uppercase tracking-widest bg-[#f2fbe6] px-3 py-1.5 rounded-full">Cold Chain Logistics</span>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    Reefer Specialists <br><span class="text-[#73cd02] font-normal text-2xl md:text-3xl block mt-1">Reliable Cold Chain Logistics You Can Trust</span>
+                </h3>
+                <p class="text-sm md:text-base text-slate-500 leading-relaxed">
+                    Weldedron specializes in reefer transportation and cold chain logistics, ensuring temperature-sensitive cargo reaches its destination in perfect condition. With advanced refrigerated solutions and a commitment to reliability, we help businesses maintain product freshness, quality, and compliance throughout the supply chain. From farm to market, our expertise keeps your cargo moving under the right conditions every step of the way.
+                </p>
+                <div class="pt-2">
+                    <a href="#contact" class="inline-flex items-center gap-2 text-[#73cd02] font-bold text-sm hover:text-[#5cb301] transition">
+                        Book a Reefer Container <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION: FRESH FRUITS & VEGETABLE EXPORTS ==================== -->
+        <section id="exports" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60 grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#f2fbe6] blur-3xl opacity-80 rounded-full pointer-events-none"></div>
+            
+            <div class="md:col-span-7 space-y-4 max-w-xl" data-aos="fade-right" data-aos-delay="200">
+                <span class="text-xs font-bold text-[#5cb301] uppercase tracking-widest bg-[#f2fbe6] px-3 py-1.5 rounded-full">Global Exports</span>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    Fresh Fruits & Vegetable Exports <br><span class="text-[#73cd02] font-normal text-2xl md:text-3xl block mt-1">Delivering Nature’s Best Across Borders</span>
+                </h3>
+                <p class="text-sm md:text-base text-slate-500 leading-relaxed">
+                    At Weldedron, we export premium-quality fruits and vegetables to international markets with a focus on freshness, quality, and timely delivery. Our efficient sourcing, packaging, and logistics network ensures that every shipment meets global standards while preserving the natural taste and nutritional value of the produce. We connect growers with global buyers through dependable export solutions.
+                </p>
+            </div>
+
+            <div class="md:col-span-5 rounded-3xl overflow-hidden aspect-video md:aspect-[4/3] shadow-md border border-slate-100 group relative">
+                <!-- Subtle Green Shade Tint Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-tl from-[#73cd02]/15 via-transparent to-transparent z-10 pointer-events-none group-hover:opacity-40 transition duration-300"></div>
+                <img src="food.jpg" alt="Fresh Fruits Exports" class="w-full h-full object-cover block transform group-hover:scale-105 transition duration-500">
+            </div>
+        </section>
 
         <!-- ==================== SECTION 2: SHIPPING & LOGISTICS SERVICES ==================== -->
         <section id="services" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60" data-aos="fade-up" data-aos-duration="1000">
@@ -171,9 +323,11 @@
                 <!-- Oceanfreight -->
                 <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="100">
                     <img src="ship-moving.jpg" alt="Oceanfreight" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
-                        <h4 class="text-lg font-bold text-orange-400">Oceanfreight (FCL/LCL)</h4>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10"></div>
+                    <!-- Hover Green Tint Overlay -->
+                    <div class="absolute inset-0 bg-[#73cd02]/15 opacity-0 group-hover:opacity-100 transition duration-300 z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300 z-20">
+                        <h4 class="text-lg font-bold text-[#73cd02]">Oceanfreight (FCL/LCL)</h4>
                         <p class="text-xs text-zinc-300 leading-relaxed">International full-container-load and less-than-container-load shipping solutions.</p>
                     </div>
                 </div>
@@ -181,9 +335,11 @@
                 <!-- Intermodal & Handling -->
                 <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="200">
                     <img src="train.jpg" alt="Intermodal & Handling" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
-                        <h4 class="text-lg font-bold text-orange-400">Intermodal & Handling</h4>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10"></div>
+                    <!-- Hover Green Tint Overlay -->
+                    <div class="absolute inset-0 bg-[#73cd02]/15 opacity-0 group-hover:opacity-100 transition duration-300 z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300 z-20">
+                        <h4 class="text-lg font-bold text-[#73cd02]">Intermodal & Handling</h4>
                         <p class="text-xs text-zinc-300 leading-relaxed">Cargo transportation through rail, barge, truck, and other transport modes, including customs assistance.</p>
                     </div>
                 </div>
@@ -191,18 +347,63 @@
                 <!-- Airfreight -->
                 <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="300">
                     <img src="plane.jpg" alt="Airfreight" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
-                        <h4 class="text-lg font-bold text-orange-400">Airfreight</h4>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10"></div>
+                    <!-- Hover Green Tint Overlay -->
+                    <div class="absolute inset-0 bg-[#73cd02]/15 opacity-0 group-hover:opacity-100 transition duration-300 z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300 z-20">
+                        <h4 class="text-lg font-bold text-[#73cd02]">Airfreight</h4>
                         <p class="text-xs text-zinc-300 leading-relaxed">Fast and reliable air cargo transportation services across global destinations.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- ==================== SECTION: SISTER/ASSOCIATED COMPANY (DEALEX) ==================== -->
+        <section id="dealex" class="bg-[#0f1411] rounded-[2.5rem] p-8 md:p-14 text-white shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-[#73cd02]/10 blur-3xl rounded-full pointer-events-none"></div>
+            
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+                <span class="text-xs font-bold text-[#73cd02] uppercase tracking-widest bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800 inline-block">Our Associated Company – Deluxe Branding</span>
+                <h3 class="text-3xl md:text-4xl font-extrabold tracking-tight">Dealex Transport & Logistics Services</h3>
+                <p class="text-[#73cd02] font-medium text-lg">Strengthening Cold Chain & Logistics Excellence</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+                <div class="space-y-4 text-sm font-light text-zinc-300 leading-relaxed" data-aos="fade-right">
+                    <p>
+                        Weldedron proudly partners with <strong>Dealex Transport & Logistics Services (DTLS)</strong>, a leading road transportation and logistics company with nationwide operations across Pakistan. With a modern fleet of containerized and refrigerated vehicles, Dealex specializes in the safe and efficient movement of temperature-sensitive cargo, bulk freight, and general goods.
+                    </p>
+                    <p>
+                        As the operator of the <strong>Dealex Own Terminal (DOT) – Reefer & Cold Chain Hub</strong>, the company provides seamless cold chain solutions that connect businesses to local and global markets. Its advanced fleet management systems, experienced workforce, and commitment to punctuality ensure every shipment is handled with precision and care.
+                    </p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950/40 border border-zinc-800 rounded-3xl p-6 md:p-8 space-y-6" data-aos="fade-left">
+                    <h4 class="text-lg font-bold text-white border-b border-zinc-800 pb-3">Integrated Competencies</h4>
+                    <ul class="space-y-3.5 text-xs text-zinc-400 font-medium">
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-[#73cd02]"></span> Nationwide Logistics Backbone Across Pakistan
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-[#73cd02]"></span> Modern Dedicated Containerized & Refrigerated Fleet
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-[#73cd02]"></span> State-of-the-art DOT Reefer & Cold Chain Hub Operations
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-[#73cd02]"></span> Precision Workforce & Live Fleet Tracking Modules
+                        </li>
+                    </ul>
+                    <p class="text-xs text-[#73cd02] font-semibold italic pt-2 border-t border-zinc-800/60">
+                        Together, Weldedron and Dealex deliver integrated logistics solutions combining infrastructure, fleet reliability, and operational excellence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- ==================== SECTION 3: WHY VALDETRON (FEATURES) ==================== -->
         <section id="why-valdetron" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60 grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
-            <div class="absolute top-0 right-1/4 w-48 h-48 bg-orange-200 blur-3xl opacity-40 rounded-full pointer-events-none"></div>
+            <div class="absolute top-0 right-1/4 w-48 h-48 bg-[#f2fbe6] blur-3xl opacity-40 rounded-full pointer-events-none"></div>
 
             <div class="md:col-span-7 space-y-6 relative z-10 max-w-xl" data-aos="fade-right" data-aos-delay="200">
                 <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
@@ -215,14 +416,14 @@
                 <!-- Value Features -->
                 <div class="space-y-4 pt-2">
                     <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100/80 transform hover:translate-x-2 transition duration-300">
-                        <span class="text-orange-500 text-xl mt-0.5">📦</span>
+                        <span class="text-[#73cd02] text-xl mt-0.5">📦</span>
                         <div>
                             <h5 class="text-sm font-bold text-slate-800">Non-Containerized Cargo</h5>
                             <p class="text-xs text-slate-500 mt-1 leading-relaxed">Specialized cargo transportation and handling services designed specifically for complex freight loads.</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100/80 transform hover:translate-x-2 transition duration-300">
-                        <span class="text-orange-500 text-xl mt-0.5">💼</span>
+                        <span class="text-[#73cd02] text-xl mt-0.5">💼</span>
                         <div>
                             <h5 class="text-sm font-bold text-slate-800">Business Consultancy</h5>
                             <p class="text-xs text-slate-500 mt-1 leading-relaxed">Guidance on logistics optimization, border procedures, business transactions, international requirements, and global business connections.</p>
@@ -232,7 +433,8 @@
             </div>
 
             <!-- Right Framed Design Container Image -->
-            <div class="md:col-span-5 rounded-3xl overflow-hidden aspect-square max-w-md mx-auto shadow-md border border-slate-100 group" data-aos="fade-left" data-aos-delay="300">
+            <div class="md:col-span-5 rounded-3xl overflow-hidden aspect-square max-w-md mx-auto shadow-md border border-slate-100 group relative" data-aos="fade-left" data-aos-delay="300">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#73cd02]/10 opacity-0 group-hover:opacity-100 transition duration-300 z-10 pointer-events-none"></div>
                 <img src="containers2.jpg" alt="Valdetron Supply Network" class="w-full h-full object-cover block transform group-hover:scale-105 transition duration-500">
             </div>
         </section>
@@ -277,7 +479,7 @@
             
             <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto w-full">
                 <div class="md:col-span-7 space-y-4" data-aos="fade-right" data-aos-delay="200">
-                    <h4 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-orange-400">
+                    <h4 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-[#73cd02]">
                         Track or Calculate <br>your shipments
                     </h4>
                     <p class="text-sm text-zinc-300 max-w-xl leading-relaxed font-light">
@@ -289,17 +491,18 @@
                 <div class="md:col-span-5 bg-white rounded-3xl p-5 text-slate-900 space-y-3 shadow-2xl max-w-sm w-full mx-auto relative z-20 transform hover:scale-[1.02] transition duration-300" data-aos="fade-left" data-aos-delay="300">
                     <p class="text-xs font-extrabold text-slate-800 tracking-tight">Quickly Track your Shipments</p>
                     <div>
-                        <input type="text" placeholder="Enter your shipment code" class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:border-orange-500 transition font-medium">
+                        <input type="text" placeholder="Enter your shipment code" class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:border-[#73cd02] transition font-medium">
                     </div>
                     <div>
-                        <select class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none text-slate-500 focus:border-orange-500 transition font-medium">
+                        <select class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none text-slate-500 focus:border-[#73cd02] transition font-medium">
                             <option>Select Your Service</option>
                             <option>Oceanfreight (FCL/LCL)</option>
+                            <option>Reefer & Cold Chain Logistics</option>
+                            <option>Fresh Produce Exports</option>
                             <option>Intermodal & Handling</option>
-                            <option>Airfreight Solutions</option>
                         </select>
                     </div>
-                    <button class="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transform active:scale-95">
+                    <button class="w-full bg-[#73cd02] hover:bg-[#5cb301] transition text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transform active:scale-95">
                         Track Now
                     </button>
                 </div>
@@ -308,12 +511,111 @@
 
     </div>
 
-    <!-- AOS Script Integration for Scroll Animations -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS Script Integration -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({
-            once: true, // Animation blocks trigger only once on scroll down
-            offset: 120, // Pixel trigger point from viewport bottom
+        // Safe AOS Initialization Fail-safe
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                once: true,
+                offset: 120,
+            });
+        } else {
+            document.querySelectorAll('[data-aos]').forEach(element => {
+                element.style.opacity = '1';
+                element.style.transform = 'none';
+            });
+        }
+
+        // --- Mobile Only Click Dropdown Event Listeners ---
+        const servicesTrigger = document.getElementById('services-trigger');
+        const servicesMenu = document.getElementById('services-menu');
+        const locationsTrigger = document.getElementById('locations-trigger');
+        const locationsMenu = document.getElementById('locations-menu');
+
+        function closeAllDropdowns() {
+            if(window.innerWidth < 1024) {
+                if(servicesTrigger) servicesTrigger.classList.remove('active');
+                if(servicesMenu) servicesMenu.classList.remove('show');
+                if(locationsTrigger) locationsTrigger.classList.remove('active');
+                if(locationsMenu) locationsMenu.classList.remove('show');
+            }
+        }
+
+        // Only run click triggers if on mobile screen size to avoid conflicts with CSS hover
+        if(servicesTrigger && servicesMenu) {
+            servicesTrigger.addEventListener('click', function(e) {
+                if(window.innerWidth < 1024) {
+                    e.stopPropagation();
+                    const isOpen = servicesMenu.classList.contains('show');
+                    closeAllDropdowns();
+                    if (!isOpen) {
+                        servicesTrigger.classList.add('active');
+                        servicesMenu.classList.add('show');
+                    }
+                }
+            });
+        }
+
+        if(locationsTrigger && locationsMenu) {
+            locationsTrigger.addEventListener('click', function(e) {
+                if(window.innerWidth < 1024) {
+                    e.stopPropagation();
+                    const isOpen = locationsMenu.classList.contains('show');
+                    closeAllDropdowns();
+                    if (!isOpen) {
+                        locationsTrigger.classList.add('active');
+                        locationsMenu.classList.add('show');
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('click', function() {
+            closeAllDropdowns();
+        });
+
+        // --- Mobile Drawer Navigation Logic ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMenu() {
+            const isOpened = menuToggle.classList.contains('nav-open');
+            if (!isOpened) {
+                menuToggle.classList.add('nav-open');
+                mobileDrawer.classList.remove('translate-x-full');
+                mobileDrawer.classList.add('translate-x-0');
+                mobileOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    mobileOverlay.classList.remove('opacity-0');
+                    mobileOverlay.classList.add('opacity-100');
+                }, 10);
+                document.body.classList.add('overflow-hidden');
+            } else {
+                closeMenu();
+            }
+        }
+
+        function closeMenu() {
+            if(!menuToggle) return;
+            menuToggle.classList.remove('nav-open');
+            mobileDrawer.classList.remove('translate-x-0');
+            mobileDrawer.classList.add('translate-x-full');
+            mobileOverlay.classList.remove('opacity-100');
+            mobileOverlay.classList.add('opacity-0');
+            setTimeout(() => {
+                mobileOverlay.classList.add('hidden');
+            }, 300);
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        if(menuToggle) menuToggle.addEventListener('click', toggleMenu);
+        if(mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
     </script>
 </body>
