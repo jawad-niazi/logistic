@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valdetron - International Container Logistics</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfbf7;
+            scroll-behavior: smooth;
+        }
+        /* Custom Smooth Floating Animation for Hero Container */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(0.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .hero-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        /* Dropdown CSS Transitions */
+        .dropdown-menu {
+            display: none;
+            opacity: 0;
+            transform: translateX(-50%) translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-trigger:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body class="text-slate-900 antialiased overflow-x-hidden">
+
+    <!-- MAIN VERTICAL PAGE FLOW -->
+    <div class="max-w-[1440px] mx-auto px-4 md:px-12 space-y-20 py-6">
+        
+        <!-- ==================== SECTION 1: HEADER & HERO ==================== -->
+        <header class="flex flex-col min-h-screen justify-between gap-8">
+            <!-- Navbar -->
+            <nav class="flex items-center justify-between py-4 relative z-50">
+                <div class="flex items-center gap-2">
+                    <img src="logo.png" alt="Valdetron Logo" class="h-9 object-contain">
+                </div>
+                
+                <!-- Navigation Structure with Dropdowns -->
+                <div class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                    <a href="#home" class="hover:text-orange-500 transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-orange-500 transition-colors duration-300">About Us</a>
+                    
+                    <!-- Services Dropdown -->
+                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-orange-500 transition-colors duration-300">
+                        <span class="flex items-center gap-1">Services <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50">
+                            <div class="bg-white border border-slate-100 rounded-xl shadow-xl p-3 w-64 flex flex-col gap-2">
+                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Oceanfreight (FCL/LCL)</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Intermodal & Handling</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Non-Containerized Cargo</a>
+                                <a href="#services" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Airfreight</a>
+                                <a href="#why-valdetron" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Business Consultancy</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Locations Dropdown -->
+                    <div class="relative dropdown-trigger py-2 cursor-pointer hover:text-orange-500 transition-colors duration-300">
+                        <span class="flex items-center gap-1">Locations <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></span>
+                        <div class="dropdown-menu absolute pt-2 top-10 left-1/2 z-50">
+                            <div class="bg-white border border-slate-100 rounded-xl shadow-xl p-3 w-48 flex flex-col gap-2">
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Denmark</a>
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Netherlands</a>
+                                <a href="#locations" class="px-3 py-2 text-xs rounded-lg hover:bg-orange-50 text-slate-700 hover:text-orange-600 transition font-medium">Pakistan</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#about" class="hover:text-orange-500 transition-colors duration-300">Our People</a>
+                </div>
+                <a href="#contact" class="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium px-6 py-2.5 rounded-full text-sm shadow-md hover:opacity-90 transform hover:-translate-y-0.5 transition duration-300">Contact</a>
+            </nav>
+
+            <!-- Hero Headline -->
+            <div id="home" class="text-center mt-6" data-aos="fade-down" data-aos-duration="1000">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-none">
+                    Moving your stuff around <br class="hidden md:block"> the planet <span class="text-orange-500 block md:inline mt-2">since 1997.</span>
+                </h1>
+                
+                <!-- Pickup/Destination Tracking Input Area -->
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-2xl mx-auto bg-white p-2.5 rounded-2xl md:rounded-full shadow-lg border border-slate-100 relative z-20 transform hover:scale-[1.01] transition duration-300">
+                    <div class="flex items-center gap-2 px-4 w-full border-b sm:border-b-0 sm:border-r border-slate-100 pb-2 sm:pb-0">
+                        <span class="text-slate-400 text-base">📍</span>
+                        <input type="text" placeholder="Enter pickup location" class="w-full text-sm bg-transparent outline-none text-slate-700 placeholder-slate-400 font-medium">
+                    </div>
+                    <div class="flex items-center gap-2 px-4 w-full pb-2 sm:pb-0">
+                        <span class="text-slate-400 text-base">🏁</span>
+                        <input type="text" placeholder="Enter destination location" class="w-full text-sm bg-transparent outline-none text-slate-700 placeholder-slate-400 font-medium">
+                    </div>
+                    <button class="bg-slate-900 text-white p-3.5 rounded-xl md:rounded-full hover:bg-slate-800 transform hover:scale-105 transition duration-300 w-full sm:w-auto flex justify-center items-center shrink-0 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Central 3D Container Asset with Floating Animation -->
+            <div class="relative w-full flex justify-center items-center mt-2 max-w-5xl mx-auto hero-float" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="200">
+                <div class="absolute top-10 left-6 md:left-12 bg-orange-500 text-white rounded-full p-3 shadow-lg z-10 flex flex-col items-center justify-center w-14 h-14 text-[11px] font-extrabold animate-pulse">
+                    <span>360°</span>
+                    <span class="text-[9px] -mt-0.5">🔄</span>
+                </div>
+                <img src="hero2.png" alt="Valdetron Cargo Container" class="w-full max-w-4xl object-contain relative z-0 transform hover:scale-[1.05] transition duration-700 ease-out">
+            </div>
+
+            <!-- Dark Logistics Info Banner -->
+            <div id="about" class="bg-[#18181b] rounded-[2.5rem] p-6 md:p-12 text-white shadow-2xl mt-4" data-aos="fade-up" data-aos-duration="1000">
+                <!-- Locations / Country Labels Row -->
+                <div class="grid grid-cols-3 gap-4 items-center opacity-90 pb-8 border-b border-zinc-800 text-center text-xs tracking-widest font-extrabold text-orange-400">
+                    <div class="hover:text-white transition duration-300 cursor-default">DENMARK</div>
+                    <div class="hover:text-white transition duration-300 cursor-default">NETHERLANDS</div>
+                    <div class="hover:text-white transition duration-300 cursor-default">PAKISTAN</div>
+                </div>
+
+                <!-- Inner About Intro Section -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pt-8 items-center">
+                    <div class="md:col-span-5 space-y-4" data-aos="fade-right" data-aos-delay="200">
+                        <div class="rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 p-1 group">
+                            <img src="containers.jpg" alt="Valdetron Vessel Operation" class="w-full h-44 object-cover rounded-xl block transform group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-orange-500 flex items-center justify-center text-xl text-black font-extrabold shrink-0">✱</div>
+                            <div class="bg-zinc-800 rounded-xl px-4 py-2 text-xs text-zinc-400 leading-normal">
+                                Responsive and cost-effective container solutions.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Copy Block -->
+                    <div class="md:col-span-7 space-y-4" data-aos="fade-left" data-aos-delay="300">
+                        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight text-orange-500">
+                            Decades of Experience in Shipping & Forwarding
+                        </h2>
+                        <p class="text-sm md:text-base text-zinc-300 leading-relaxed font-light">
+                            Valdetron has decades of experience in shipping and forwarding and specializes in international container logistics. The company also provides intermodal services, cargo handling, non-containerized cargo solutions, air freight, and business consultancy. Their focus is on responsive, cost-effective service and long-term client relationships.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <a href="#contact" class="bg-orange-500 hover:bg-orange-600 text-black font-bold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5 shadow-md">Contact Our Team</a>
+                            <a href="#services" class="bg-transparent hover:bg-zinc-800 border border-zinc-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition transform hover:-translate-y-0.5">View Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== SECTION 2: SHIPPING & LOGISTICS SERVICES ==================== -->
+        <section id="services" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60" data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-slate-900 tracking-tight mb-2">
+                Shipping & Logistics Services
+            </h2>
+            <p class="text-center text-slate-400 text-sm mb-12 max-w-md mx-auto">Complete international freight and containerized handling solutions.</p>
+            
+            <!-- 3-Card Premium Grid Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Oceanfreight -->
+                <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="ship-moving.jpg" alt="Oceanfreight" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
+                        <h4 class="text-lg font-bold text-orange-400">Oceanfreight (FCL/LCL)</h4>
+                        <p class="text-xs text-zinc-300 leading-relaxed">International full-container-load and less-than-container-load shipping solutions.</p>
+                    </div>
+                </div>
+                
+                <!-- Intermodal & Handling -->
+                <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="train.jpg" alt="Intermodal & Handling" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
+                        <h4 class="text-lg font-bold text-orange-400">Intermodal & Handling</h4>
+                        <p class="text-xs text-zinc-300 leading-relaxed">Cargo transportation through rail, barge, truck, and other transport modes, including customs assistance.</p>
+                    </div>
+                </div>
+
+                <!-- Airfreight -->
+                <div class="relative rounded-3xl overflow-hidden group aspect-[3/4] shadow-md border border-slate-50" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="plane.jpg" alt="Airfreight" class="w-full h-full object-cover absolute inset-0 group-hover:scale-110 transition duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 text-white space-y-1.5 transform group-hover:translate-y-[-4px] transition duration-300">
+                        <h4 class="text-lg font-bold text-orange-400">Airfreight</h4>
+                        <p class="text-xs text-zinc-300 leading-relaxed">Fast and reliable air cargo transportation services across global destinations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 3: WHY VALDETRON (FEATURES) ==================== -->
+        <section id="why-valdetron" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60 grid grid-cols-1 md:grid-cols-12 gap-10 items-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+            <div class="absolute top-0 right-1/4 w-48 h-48 bg-orange-200 blur-3xl opacity-40 rounded-full pointer-events-none"></div>
+
+            <div class="md:col-span-7 space-y-6 relative z-10 max-w-xl" data-aos="fade-right" data-aos-delay="200">
+                <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
+                    Why Valdetron?
+                </h3>
+                <p class="text-sm md:text-base text-slate-500 leading-relaxed">
+                    Valdetron helps businesses simplify logistics operations, improve communication across ports, reduce time spent managing freight partners, and ensure reliable cargo delivery. The company positions itself as a logistics partner that allows clients to focus on their core business activities.
+                </p>
+                
+                <!-- Value Features -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100/80 transform hover:translate-x-2 transition duration-300">
+                        <span class="text-orange-500 text-xl mt-0.5">📦</span>
+                        <div>
+                            <h5 class="text-sm font-bold text-slate-800">Non-Containerized Cargo</h5>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Specialized cargo transportation and handling services designed specifically for complex freight loads.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100/80 transform hover:translate-x-2 transition duration-300">
+                        <span class="text-orange-500 text-xl mt-0.5">💼</span>
+                        <div>
+                            <h5 class="text-sm font-bold text-slate-800">Business Consultancy</h5>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">Guidance on logistics optimization, border procedures, business transactions, international requirements, and global business connections.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Framed Design Container Image -->
+            <div class="md:col-span-5 rounded-3xl overflow-hidden aspect-square max-w-md mx-auto shadow-md border border-slate-100 group" data-aos="fade-left" data-aos-delay="300">
+                <img src="containers2.jpg" alt="Valdetron Supply Network" class="w-full h-full object-cover block transform group-hover:scale-105 transition duration-500">
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 4: OFFICES & GLOBAL LOCATIONS ==================== -->
+        <section id="locations" class="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-sm border border-slate-100/60 text-center space-y-6" data-aos="fade-up" data-aos-duration="1000">
+            <h3 class="text-3xl font-extrabold text-slate-900 tracking-tight">
+                Find Locations To Buy, Sell <br>Or Lease Containers
+            </h3>
+            
+            <!-- Map Area Container -->
+            <div class="relative bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 min-h-[420px] flex items-center justify-center max-w-5xl mx-auto p-4">
+                <img src="map.png" alt="World map network" class="absolute inset-0 w-full h-full object-cover opacity-35">
+                
+                <!-- Denmark Head Office Pin Box -->
+                <div class="absolute top-[16%] left-[42%] md:left-[45%] bg-white shadow-xl rounded-2xl p-3 border border-slate-100 text-left z-10 max-w-[240px] transform hover:scale-105 transition duration-300" data-aos="zoom-in" data-aos-delay="200">
+                    <p class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5"><span class="text-sm">🇩🇰</span> Denmark (Head Office)</p>
+                    <p class="text-[10px] font-medium text-slate-500 mt-1 leading-normal">Trondhjemsgade 2, 2100 Copenhagen Ø, Denmark.</p>
+                </div>
+
+                <!-- Netherlands Office Pin Box -->
+                <div class="absolute top-[40%] left-[24%] md:left-[36%] bg-white shadow-xl rounded-2xl p-3 border border-slate-100 text-left z-10 max-w-[220px] transform hover:scale-105 transition duration-300" data-aos="zoom-in" data-aos-delay="400">
+                    <p class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5"><span class="text-sm">🇳🇱</span> Netherlands</p>
+                    <p class="text-[10px] font-medium text-slate-500 mt-1 leading-normal">Warande 101, 3031 PX Rotterdam, Netherlands.</p>
+                </div>
+
+                <!-- Pakistan Office Pin Box -->
+                <div class="absolute bottom-[20%] right-[14%] md:right-[20%] bg-white shadow-xl rounded-2xl p-3 border border-slate-100 text-left z-10 max-w-[260px] transform hover:scale-105 transition duration-300" data-aos="zoom-in" data-aos-delay="600">
+                    <p class="text-xs font-extrabold text-slate-800 flex items-center gap-1.5"><span class="text-sm">🇵🇰</span> Pakistan Hub</p>
+                    <p class="text-[10px] font-medium text-slate-500 mt-1 leading-normal">Suite #303 & 309, 3rd Floor, Landmark Plaza, Muhammad Bin Qasim Road, Karachi, Pakistan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION 5: FOOTER TRACKING WIDGET ==================== -->
+        <footer id="contact" class="relative bg-zinc-900 rounded-[2.5rem] p-8 md:p-14 text-white overflow-hidden shadow-2xl mb-4 min-h-[360px] flex items-center" data-aos="fade-up" data-aos-duration="1000">
+            
+            <!-- STRETCHED BACKGROUND IMAGE -->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="ship.jpg" alt="Dockyard overlay background" class="w-full h-full object-cover object-center opacity-20 mix-blend-overlay">
+            </div>
+            
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto w-full">
+                <div class="md:col-span-7 space-y-4" data-aos="fade-right" data-aos-delay="200">
+                    <h4 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-orange-400">
+                        Track or Calculate <br>your shipments
+                    </h4>
+                    <p class="text-sm text-zinc-300 max-w-xl leading-relaxed font-light">
+                        Valdetron specializes in international container logistics and delivers cargo safely and efficiently across global destinations. Our vision is to work transparently with clients and suppliers.
+                    </p>
+                </div>
+                
+                <!-- Interactive Mini Form -->
+                <div class="md:col-span-5 bg-white rounded-3xl p-5 text-slate-900 space-y-3 shadow-2xl max-w-sm w-full mx-auto relative z-20 transform hover:scale-[1.02] transition duration-300" data-aos="fade-left" data-aos-delay="300">
+                    <p class="text-xs font-extrabold text-slate-800 tracking-tight">Quickly Track your Shipments</p>
+                    <div>
+                        <input type="text" placeholder="Enter your shipment code" class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:border-orange-500 transition font-medium">
+                    </div>
+                    <div>
+                        <select class="w-full text-xs p-3.5 bg-slate-50 border border-slate-100 rounded-xl outline-none text-slate-500 focus:border-orange-500 transition font-medium">
+                            <option>Select Your Service</option>
+                            <option>Oceanfreight (FCL/LCL)</option>
+                            <option>Intermodal & Handling</option>
+                            <option>Airfreight Solutions</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transform active:scale-95">
+                        Track Now
+                    </button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- AOS Script Integration for Scroll Animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // Animation blocks trigger only once on scroll down
+            offset: 120, // Pixel trigger point from viewport bottom
+        });
+    </script>
+</body>
+</html>
